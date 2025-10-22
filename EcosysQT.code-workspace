@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "EcosysQT",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.jsontemplate": "json",
+			"*.jsondoc": "json",
+			"*.uijsontemplate": "json",
+			"*.pygettext": "python",
+			"qmainwindow": "cpp"
+		}
+	}
+}
