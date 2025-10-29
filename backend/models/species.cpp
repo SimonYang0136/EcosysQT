@@ -2,6 +2,7 @@
 #include <random>
 #include <algorithm>
 #include <cmath>
+#include <Eigen/Dense>
 
 // --- Species ---
 Species::Species(Position pos, double energy, int max_age, double reproduction_energy_cost)
@@ -126,10 +127,16 @@ Grass::Grass(Position pos)
       competition_radius(30.0), max_competition_effect(0.9) {}
 
 double Grass::calculate_nearby_grass_density_optimized(const EcosystemStateData& ecosystem_state) {
-    // 这里只实现简单逻辑，实际可用 Eigen 或其他库优化
     const auto& positions = ecosystem_state.grass_positions_array;
     const auto& alive_grass_objects = ecosystem_state.alive_grass_objects;
     if (positions.empty()) return 0.0;
+
+    // 构造 Eigen 矩阵
+    Eigen::MatrixXd pos_mat(positions.size(), 2);
+    for (size_t i = 0; i < positions.size(); ++i) {
+        pos_mat(i, 0) = positions[i].x;
+        pos_mat(i, 1) = positions[i].y;
+    }
 
     // 找到自身索引
     int self_index = -1;
@@ -139,23 +146,36 @@ double Grass::calculate_nearby_grass_density_optimized(const EcosystemStateData&
             break;
         }
     }
-    // 排除自身
-    std::vector<Position> filtered_positions;
-    for (size_t i = 0; i < positions.size(); ++i) {
-        if ((int)i != self_index) filtered_positions.push_back(positions[i]);
-    }
-    if (filtered_positions.empty()) return 0.0;
 
-    // 计算距离
-    int nearby_grass_count = 0;
-    for (const auto& pos : filtered_positions) {
-        double dist = position.distance_to(pos);
-        if (dist <= competition_radius) nearby_grass_count++;
+    // 排除自身
+    Eigen::MatrixXd filtered;
+    if (self_index >= 0 && positions.size() > 1) {
+        filtered = Eigen::MatrixXd(positions.size() - 1, 2);
+        int idx = 0;
+        for (size_t i = 0; i < positions.size(); ++i) {
+            if ((int)i != self_index) {
+                filtered(idx, 0) = positions[i].x;
+                filtered(idx, 1) = positions[i].y;
+                ++idx;
+            }
+        }
+    } else {
+        filtered = pos_mat;
     }
+    if (filtered.rows() == 0) return 0.0;
+
+    // 计算距离（向量化）
+    Eigen::Vector2d self_pos(position.x, position.y);
+    Eigen::VectorXd distances = (filtered.rowwise() - self_pos.transpose()).rowwise().norm();
+
+    // 统计在竞争半径内的草数量
+    int nearby_grass_count = (distances.array() <= competition_radius).count();
+
     double max_possible_grass = M_PI * (competition_radius * competition_radius) / 400.0;
     double density = std::min(1.0, nearby_grass_count / max_possible_grass);
     return density;
 }
+
 
 double Grass::calculate_nearby_grass_density(const EcosystemStateData& ecosystem_state) {
     // 优先用优化版

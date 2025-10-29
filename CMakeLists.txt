@@ -17,6 +17,11 @@ set(CMAKE_AUTORCC ON)
 # 查找我们需要的 Qt 模块 (Widgets 是必须的)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
+# 添加 Backend/include 到头文件搜索路径
+include_directories(
+    ${CMAKE_SOURCE_DIR}/Backend/include
+)
+
 # --- 添加源文件 ---
 # 定义可执行文件及其源文件
 add_executable(MyQtApp
@@ -24,6 +29,8 @@ add_executable(MyQtApp
   mainwindow.cpp
   mainwindow.h
   mainwindow.ui
+  Backend/models/ecosystem.cpp
+  Backend/models/species.cpp
 )
 
 # --- 链接 Qt 库 ---
