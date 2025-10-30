@@ -2,12 +2,13 @@
 #include <random>
 #include <algorithm>
 #include <iostream>
+#include <Eigen/Dense>
 
 // --- SpeciesStatistics ---
 SpeciesStatistics::SpeciesStatistics() {
-    statistics[SpeciesType::GRASS] = 0;
-    statistics[SpeciesType::COW] = 0;
-    statistics[SpeciesType::TIGER] = 0;
+    for (auto type : {SpeciesType::GRASS, SpeciesType::COW, SpeciesType::TIGER}) {
+        statistics[type] = 0;
+    }
 }
 void SpeciesStatistics::increment(SpeciesType type, int count) {
     statistics[type] += count;
@@ -40,6 +41,9 @@ void SpeciesRegistry::register_species(const std::string& name, std::shared_ptr<
 }
 std::vector<std::shared_ptr<Species>>& SpeciesRegistry::get_species_list(const std::string& name) {
     return registry[name].list;
+}
+const std::vector<std::shared_ptr<Species>>& SpeciesRegistry::get_species_list(const std::string& name) const {
+    return registry.at(name).list;
 }
 int SpeciesRegistry::get_initial_count(const std::string& name) const {
     auto it = registry.find(name);
@@ -106,19 +110,29 @@ EcosystemStateData EcosystemState::get_ecosystem_state() const {
     EcosystemStateData state;
     state.world_width = config.world_width;
     state.world_height = config.world_height;
-    state.grass_list = species_registry.registry.at("grass").list;
-    state.cow_list = species_registry.registry.at("cow").list;
-    state.tiger_list = species_registry.registry.at("tiger").list;
+    state.grass_list = species_registry.get_species_list("grass");
+    state.cow_list = species_registry.get_species_list("cow");
+    state.tiger_list = species_registry.get_species_list("tiger");
     state.time_step = time_step;
 
-    // Precompute grass positions and alive objects
-    state.grass_positions_array.clear();
-    state.alive_grass_objects.clear();
+    // Precompute grass positions and alive objects (Eigen matrix)
+    std::vector<std::shared_ptr<Species>> alive_grass_objects;
+    std::vector<Eigen::Vector2d> alive_grass_positions;
     for (const auto& grass : state.grass_list) {
         if (grass->alive) {
-            state.grass_positions_array.push_back(grass->position);
-            state.alive_grass_objects.push_back(grass);
+            alive_grass_objects.push_back(grass);
+            alive_grass_positions.emplace_back(grass->position.x, grass->position.y);
         }
+    }
+    state.alive_grass_objects = alive_grass_objects;
+    if (!alive_grass_positions.empty()) {
+        state.grass_positions_array = Eigen::MatrixXd(alive_grass_positions.size(), 2);
+        for (size_t i = 0; i < alive_grass_positions.size(); ++i) {
+            state.grass_positions_array(i, 0) = alive_grass_positions[i](0);
+            state.grass_positions_array(i, 1) = alive_grass_positions[i](1);
+        }
+    } else {
+        state.grass_positions_array = Eigen::MatrixXd(0, 2);
     }
     return state;
 }
@@ -129,6 +143,23 @@ void EcosystemState::update_species(const EcosystemStateData& state) {
         for (auto& individual : list) {
             individual->update(state);
         }
+    }
+}
+
+// --- SpeciesType <-> string 映射函数 ---
+SpeciesType species_type_from_name(const std::string& name) {
+    if (name == "grass") return SpeciesType::GRASS;
+    if (name == "cow") return SpeciesType::COW;
+    if (name == "tiger") return SpeciesType::TIGER;
+    throw std::invalid_argument("Unknown species name: " + name);
+}
+
+std::string name_from_species_type(SpeciesType type) {
+    switch(type) {
+        case SpeciesType::GRASS: return "grass";
+        case SpeciesType::COW: return "cow";
+        case SpeciesType::TIGER: return "tiger";
+        default: return "";
     }
 }
 
@@ -144,7 +175,7 @@ void EcosystemState::handle_reproduction() {
             }
         }
         species_registry.extend_individuals(name, new_individuals);
-        SpeciesType type = name == "grass" ? SpeciesType::GRASS : (name == "cow" ? SpeciesType::COW : SpeciesType::TIGER);
+        SpeciesType type = species_type_from_name(name);
         births.increment(type, new_individuals.size());
         if (!new_individuals.empty()) {
             std::cout << (name == "grass" ? "🌱" : name == "cow" ? "🐄" : "🐅")
@@ -166,7 +197,7 @@ void EcosystemState::cleanup_dead() {
         auto& list = species_registry.get_species_list(name);
         int dead_count = std::count_if(list.begin(), list.end(),
             [](const std::shared_ptr<Species>& s){ return !s->alive; });
-        SpeciesType type = name == "grass" ? SpeciesType::GRASS : (name == "cow" ? SpeciesType::COW : SpeciesType::TIGER);
+        SpeciesType type = species_type_from_name(name);
         deaths.increment(type, dead_count);
         species_registry.filter_alive(name);
         if (dead_count > 0) {
@@ -178,7 +209,7 @@ void EcosystemState::cleanup_dead() {
 SpeciesStatistics EcosystemState::get_species_counts() const {
     SpeciesStatistics stats;
     for (const auto& name : species_registry.get_all_species_names()) {
-        SpeciesType type = name == "grass" ? SpeciesType::GRASS : (name == "cow" ? SpeciesType::COW : SpeciesType::TIGER);
+        SpeciesType type = species_type_from_name(name);
         int count = species_registry.get_species_count(name);
         stats.set_count(type, count);
     }
@@ -188,12 +219,12 @@ SpeciesStatistics EcosystemState::get_species_counts() const {
 SpeciesPopulationData EcosystemState::get_species_data() const {
     SpeciesPopulationData data;
     for (const auto& name : species_registry.get_all_species_names()) {
-        auto& list = species_registry.get_species_list(name);
+        const auto& list = species_registry.get_species_list(name);
         std::vector<BaseIndividualData> individuals;
         for (const auto& individual : list) {
             if (individual->alive) {
                 BaseIndividualData ind;
-                ind.id = reinterpret_cast<std::uintptr_t>(individual.get());
+                ind.id = reinterpret_cast<std::uintptr_t>(individual.get()); // C++没有id()，用地址近似
                 ind.position = PositionData{individual->position.x, individual->position.y};
                 ind.energy = individual->energy;
                 ind.age = individual->age;

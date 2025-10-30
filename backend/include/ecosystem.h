@@ -5,13 +5,16 @@
 #include <memory>
 #include <optional>
 #include "species.h"
-
+#include <Eigen/Dense>
 // Enum for species type (for statistics, registry, etc.)
 enum class SpeciesType {
     GRASS,
     COW,
     TIGER
 };
+
+SpeciesType species_type_from_name(const std::string& name);
+std::string name_from_species_type(SpeciesType type);
 
 // Position data for serialization/statistics (frontend use)
 struct PositionData {
@@ -62,7 +65,7 @@ struct EcosystemStateData {
     std::vector<std::shared_ptr<Species>> cow_list;
     std::vector<std::shared_ptr<Species>> tiger_list;
     int time_step;
-    std::vector<Position> grass_positions_array; // For density optimization
+    Eigen::MatrixXd grass_positions_array; // 完美对应 numpy 数组
     std::vector<std::shared_ptr<Species>> alive_grass_objects;
 };
 
