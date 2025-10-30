@@ -3,14 +3,15 @@ Ecosystem Data Model
 Manages the entire ecosystem state and data (C++ migration)
 */
 
-#pragma once
+// #pragma once
 #include <vector>
 #include <string>
 #include <map>
 #include <memory>
 #include <optional>
 #include "species.h"
-#include <Eigen/Dense>
+#include "utils.h"
+
 
 // Enum for species type (for statistics, registry, etc.)
 enum class SpeciesType {
@@ -64,17 +65,7 @@ public:
     void set_tiger(int value);
 };
 
-// Ecosystem state snapshot for simulation and frontend
-struct EcosystemStateData {
-    int world_width;
-    int world_height;
-    std::vector<std::shared_ptr<Species>> grass_list;
-    std::vector<std::shared_ptr<Species>> cow_list;
-    std::vector<std::shared_ptr<Species>> tiger_list;
-    int time_step;
-    Eigen::MatrixXd grass_positions_array; // Corresponds to numpy array in Python
-    std::vector<std::shared_ptr<Species>> alive_grass_objects;
-};
+
 
 // Registry for all species types and individuals
 class SpeciesRegistry {

@@ -14,8 +14,9 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-# 查找我们需要的 Qt 模块 (Widgets 是必须的)
+# 查找我们需要的库 (通过vcpkg管理)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Eigen3 CONFIG REQUIRED)
 
 # 添加 Backend/include 到头文件搜索路径
 include_directories(
@@ -33,6 +34,9 @@ add_executable(MyQtApp
   Backend/models/species.cpp
 )
 
-# --- 链接 Qt 库 ---
-# 将你的可执行文件与 Qt Widgets 库链接起来
-target_link_libraries(MyQtApp PRIVATE Qt5::Widgets)
+# --- 链接库 ---
+# 将你的可执行文件与所需库链接起来
+target_link_libraries(MyQtApp PRIVATE 
+    Qt5::Widgets
+    Eigen3::Eigen
+)

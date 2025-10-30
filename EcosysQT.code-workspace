@@ -14,7 +14,13 @@
 			"*.jsondoc": "json",
 			"*.uijsontemplate": "json",
 			"*.pygettext": "python",
-			"qmainwindow": "cpp"
+			"qmainwindow": "cpp",
+			"dense": "cpp",
+			"algorithm": "cpp",
+			"vector": "cpp",
+			"optional": "cpp",
+			"*.inc": "cpp",
+			"cmath": "cpp"
 		}
 	}
 }

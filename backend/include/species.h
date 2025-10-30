@@ -3,23 +3,9 @@ Species Data Model
 Defines the base species class and specific species implementations in the ecosystem (C++ migration)
 */
 
-#pragma once
-#include <vector>
-#include <string>
-#include <cmath>
-#include <memory>
-#include <optional>
-#include "ecosystem.h"
+// #pragma once
 
-// Position struct representing coordinates in 2D space
-struct Position {
-    double x;
-    double y;
-    // Calculate Euclidean distance to another position
-    double distance_to(const Position& other) const {
-        return std::sqrt((x - other.x)*(x - other.x) + (y - other.y)*(y - other.y));
-    }
-};
+#include "utils.h"
 
 // Base class for all species in the ecosystem
 class Species {
