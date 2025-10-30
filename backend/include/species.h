@@ -1,13 +1,16 @@
 /*
-Species Data Model
-Defines the base species class and specific species implementations in the ecosystem (C++ migration)
+物种数据模型
+定义生态系统中的基础物种类和具体物种实现 (C++ 迁移版本)
 */
 
-// #pragma once
+#pragma once
 
 #include "utils.h"
 
-// Base class for all species in the ecosystem
+// 前向声明
+class EcosystemState;
+
+// 生态系统中所有物种的基类
 class Species {
 public:
     Position position;
@@ -21,32 +24,32 @@ public:
     std::string species_name;
     double reproduction_energy_cost;
 
-    // Constructor
+    // 构造函数
     Species(Position pos, double energy = 100, int max_age = 100, double reproduction_energy_cost = 50);
 
-    // Update species state (virtual for polymorphism)
-    virtual void update(const EcosystemStateData& ecosystem_state);
-    // Check if species can reproduce
+    // 更新物种状态 (虚函数用于多态)
+    virtual void update(const EcosystemState& ecosystem_state);
+    // 检查物种是否可以繁殖
     virtual bool can_reproduce() const;
-    // Reproduce to create new individual
-    virtual std::unique_ptr<Species> reproduce(const EcosystemStateData& ecosystem_state);
-    // Move randomly within world boundaries
+    // 繁殖以创建新个体
+    virtual std::unique_ptr<Species> reproduce(const EcosystemState& ecosystem_state);
+    // 在世界边界内随机移动
     virtual void move_randomly(int world_width, int world_height, double speed = 1.0);
-    // Increase age by one step
+    // 年龄增加一步
     virtual void age_one_step();
-    // Mark as dead with reason
+    // 标记为死亡并记录原因
     virtual void die(const std::string& reason = "Unknown");
-    // Mark as dead due to old age
+    // 标记为老死
     virtual void die_from_old_age();
-    // Mark as dead due to starvation
+    // 标记为饿死
     virtual void die_from_starvation();
-    // Mark as dead due to predation
+    // 标记为被捕食死亡
     virtual void die_from_predation(const std::string& predator_name);
-    // Virtual destructor for safe polymorphic deletion
+    // 虚析构函数，用于安全的多态删除
     virtual ~Species() = default;
 };
 
-// Animal class, derived from Species, adds movement and hunting logic
+// 动物类，继承自Species，添加移动和狩猎逻辑
 class Animal : public Species {
 public:
     double movement_speed;
@@ -63,17 +66,17 @@ public:
            double hunting_success_rate = 0.5, double detection_range = 500.0,
            std::vector<std::string> food_types = {}, int hunting_cooldown_duration = 0);
 
-    // Find nearest food source
-    virtual std::optional<Position> find_nearest_food(const EcosystemStateData& ecosystem_state);
-    // Move towards target position
+    // 寻找最近的食物来源
+    virtual std::optional<Position> find_nearest_food(const EcosystemState& ecosystem_state);
+    // 向目标位置移动
     void move_towards_target(const Position& target_position, int world_width, int world_height);
-    // Intelligent movement: move towards food or randomly
-    virtual void intelligent_move(const EcosystemStateData& ecosystem_state);
-    // Start hunting cooldown
+    // 智能移动：向食物移动或随机移动
+    virtual void intelligent_move(const class EcosystemState& ecosystem_state);
+    // 开始狩猎冷却
     void start_hunting_cooldown();
 };
 
-// Grass class, derived from Species, implements producer logic
+// 草类，继承自Species，实现生产者逻辑
 class Grass : public Species {
 public:
     double base_growth_rate;
@@ -83,48 +86,48 @@ public:
 
     Grass(Position pos);
 
-    // Calculate nearby grass density (optimized)
-    double calculate_nearby_grass_density_optimized(const EcosystemStateData& ecosystem_state);
-    // Calculate nearby grass density (fallback)
-    double calculate_nearby_grass_density(const EcosystemStateData& ecosystem_state);
-    // Get growth rate adjusted for competition
-    double get_competition_adjusted_growth_rate(const EcosystemStateData& ecosystem_state);
-    // Update grass state
-    void update(const EcosystemStateData& ecosystem_state) override;
-    // Check if grass can reproduce
+    // 计算附近草的密度 (优化版本)
+    double calculate_nearby_grass_density_optimized(const EcosystemState& ecosystem_state);
+    // 计算附近草的密度 (备用版本)
+    double calculate_nearby_grass_density(const EcosystemState& ecosystem_state);
+    // 获取根据竞争调整的生长率
+    double get_competition_adjusted_growth_rate(const EcosystemState& ecosystem_state);
+    // 更新草的状态
+    void update(const class EcosystemState& ecosystem_state) override;
+    // 检查草是否可以繁殖
     bool can_reproduce() const override;
-    // Reproduce to create new grass
-    std::unique_ptr<Species> reproduce(const EcosystemStateData& ecosystem_state) override;
+    // 繁殖以创建新草
+    std::unique_ptr<Species> reproduce(const EcosystemState& ecosystem_state) override;
 };
 
-// Cow class, derived from Animal, implements primary consumer logic
+// 牛类，继承自Animal，实现初级消费者逻辑
 class Cow : public Animal {
 public:
     double eating_range;
 
     Cow(Position pos);
 
-    // Update cow state
-    void update(const EcosystemStateData& ecosystem_state) override;
-    // Eat grass from list
+    // 更新牛的状态
+    void update(const class EcosystemState& ecosystem_state) override;
+    // 从列表中吃草
     void _eat_grass(const std::vector<Grass*>& grass_list);
-    // Check if cow can reproduce
+    // 检查牛是否可以繁殖
     bool can_reproduce() const override;
-    // Reproduce to create new cow
-    std::unique_ptr<Species> reproduce(const EcosystemStateData& ecosystem_state) override;
+    // 繁殖以创建新牛
+    std::unique_ptr<Species> reproduce(const EcosystemState& ecosystem_state) override;
 };
 
-// Tiger class, derived from Animal, implements secondary consumer logic
+// 老虎类，继承自Animal，实现次级消费者逻辑
 class Tiger : public Animal {
 public:
     Tiger(Position pos);
 
-    // Update tiger state
-    void update(const EcosystemStateData& ecosystem_state) override;
-    // Hunt cows from list
+    // 更新老虎的状态
+    void update(const class EcosystemState& ecosystem_state) override;
+    // 从列表中狩猎牛
     void _hunt_cows(const std::vector<Cow*>& cow_list);
-    // Check if tiger can reproduce
+    // 检查老虎是否可以繁殖
     bool can_reproduce() const override;
-    // Reproduce to create new tiger
-    std::unique_ptr<Species> reproduce(const EcosystemStateData& ecosystem_state) override;
+    // 繁殖以创建新老虎
+    std::unique_ptr<Species> reproduce(const EcosystemState& ecosystem_state) override;
 };

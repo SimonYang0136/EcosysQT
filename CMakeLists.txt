@@ -31,7 +31,12 @@ add_executable(MyQtApp
   mainwindow.h
   mainwindow.ui
   Backend/models/ecosystem.cpp
-  Backend/models/species.cpp
+  Backend/models/species_base.cpp
+  Backend/models/animal.cpp
+  Backend/models/species/grass.cpp
+  Backend/models/species/cow.cpp
+  Backend/models/species/tiger.cpp
+  Backend/models/species_factory.cpp
 )
 
 # --- 链接库 ---

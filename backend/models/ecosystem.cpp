@@ -1,6 +1,6 @@
 /*
-Ecosystem Data Model
-Manages the entire ecosystem state and data (C++ migration)
+生态系统数据模型
+管理整个生态系统状态和数据 (C++ 迁移版本)
 */
 
 #include "ecosystem.h"
@@ -9,7 +9,7 @@ Manages the entire ecosystem state and data (C++ migration)
 #include <iostream>
 #include <Eigen/Dense>
 
-// --- SpeciesType <-> string mapping functions ---
+// --- SpeciesType <-> string 映射函数 ---
 SpeciesType species_type_from_name(const std::string& name) {
     if (name == "grass") return SpeciesType::GRASS;
     if (name == "cow") return SpeciesType::COW;
@@ -27,7 +27,7 @@ std::string name_from_species_type(SpeciesType type) {
 }
 
 // --- SpeciesStatistics ---
-// Species statistics management (population tracking)
+// 物种统计管理 (种群跟踪)
 SpeciesStatistics::SpeciesStatistics() {
     for (auto type : {SpeciesType::GRASS, SpeciesType::COW, SpeciesType::TIGER}) {
         statistics[type] = 0;
@@ -54,7 +54,7 @@ int SpeciesStatistics::tiger() const { return get_count(SpeciesType::TIGER); }
 void SpeciesStatistics::set_tiger(int value) { set_count(SpeciesType::TIGER, value); }
 
 // --- SpeciesRegistry ---
-// Registry for all species types and individuals
+// 所有物种类型和个体的注册表
 SpeciesRegistry::SpeciesRegistry(const EcosystemConfig& config) {
     register_species("grass", std::make_shared<Grass>(Position{0,0}), config.initial_grass);
     register_species("cow", std::make_shared<Cow>(Position{0,0}), config.initial_cows);
@@ -110,14 +110,14 @@ void SpeciesRegistry::filter_all_alive() {
 }
 
 // --- EcosystemState ---
-// Ecosystem state manager (simulation core)
+// 生态系统状态管理器 (模拟核心)
 EcosystemState::EcosystemState(const EcosystemConfig& config)
     : config(config), time_step(0), species_registry(config), births(), deaths(), population_history() {
     initialize_populations();
 }
 
 /*
-Initialize populations for all species using unified logic
+使用统一逻辑初始化所有物种的种群
 */
 void EcosystemState::initialize_populations() {
     for (const auto& name : species_registry.get_all_species_names()) {
@@ -125,36 +125,41 @@ void EcosystemState::initialize_populations() {
         for (int i = 0; i < initial_count; ++i) {
             int x = rand() % config.world_width;
             int y = rand() % config.world_height;
-            std::shared_ptr<Species> individual;
-            if (name == "grass") individual = std::make_shared<Grass>(Position{(double)x, (double)y});
-            else if (name == "cow") individual = std::make_shared<Cow>(Position{(double)x, (double)y});
-            else if (name == "tiger") individual = std::make_shared<Tiger>(Position{(double)x, (double)y});
+            // 使用工厂模式创建物种实例
+            std::shared_ptr<Species> individual = g_species_factory.create(name, Position{(double)x, (double)y});
             species_registry.add_individual(name, individual);
         }
     }
 }
 
 /*
-Get ecosystem state snapshot for simulation and frontend
+获取用于模拟和前端的生态系统状态快照
 */
 EcosystemStateData EcosystemState::get_ecosystem_state() const {
     EcosystemStateData state;
     state.world_width = config.world_width;
     state.world_height = config.world_height;
-    state.grass_list = species_registry.get_species_list("grass");
-    state.cow_list = species_registry.get_species_list("cow");
-    state.tiger_list = species_registry.get_species_list("tiger");
     state.time_step = time_step;
 
-    // Precompute grass positions and alive objects (Eigen matrix)
+    // 填充species_lists map
+    for (const auto& species_name : species_registry.get_all_species_names()) {
+        state.species_lists[species_name] = species_registry.get_species_list(species_name);
+    }
+
+    // 预计算草的位置和存活对象 (Eigen矩阵)
     std::vector<std::shared_ptr<Species>> alive_grass_objects;
     std::vector<Eigen::Vector2d> alive_grass_positions;
-    for (const auto& grass : state.grass_list) {
-        if (grass->alive) {
-            alive_grass_objects.push_back(grass);
-            alive_grass_positions.emplace_back(grass->position.x, grass->position.y);
+    
+    auto grass_it = state.species_lists.find("grass");
+    if (grass_it != state.species_lists.end()) {
+        for (const auto& grass : grass_it->second) {
+            if (grass->alive) {
+                alive_grass_objects.push_back(grass);
+                alive_grass_positions.emplace_back(grass->position.x, grass->position.y);
+            }
         }
     }
+    
     state.alive_grass_objects = alive_grass_objects;
     if (!alive_grass_positions.empty()) {
         state.grass_positions_array = Eigen::MatrixXd(alive_grass_positions.size(), 2);
@@ -169,30 +174,31 @@ EcosystemStateData EcosystemState::get_ecosystem_state() const {
 }
 
 /*
-Update all species using unified logic
+使用统一逻辑更新所有物种
 */
-void EcosystemState::update_species(const EcosystemStateData& state) {
+void EcosystemState::update_species() {
     for (const auto& name : species_registry.get_all_species_names()) {
         auto& list = species_registry.get_species_list(name);
         for (auto& individual : list) {
-            individual->update(state);
+            individual->update(*this);
         }
     }
 }
 
 
 /*
-Handle reproduction for all species using unified logic
+使用统一逻辑处理所有物种的繁殖
 */
 void EcosystemState::handle_reproduction() {
-    EcosystemStateData state = get_ecosystem_state();
     for (const auto& name : species_registry.get_all_species_names()) {
         auto& list = species_registry.get_species_list(name);
         std::vector<std::shared_ptr<Species>> new_individuals;
         for (auto& individual : list) {
             if (individual->can_reproduce()) {
-                auto offspring = individual->reproduce(state);
-                if (offspring) new_individuals.push_back(std::move(offspring));
+                auto offspring = individual->reproduce(*this); // 调用物种的繁殖方法
+                if (offspring) new_individuals.push_back(std::move(offspring)); // 加入新个体列表
+                // std::move 将 unique_ptr 的所有权转移给 push_back，避免拷贝，提高效率
+                if (offspring) new_individuals.push_back(std::move(offspring)); 
             }
         }
         species_registry.extend_individuals(name, new_individuals);
@@ -206,7 +212,7 @@ void EcosystemState::handle_reproduction() {
 }
 
 /*
-Update statistics and maintain population history
+更新统计信息并维护种群历史
 */
 void EcosystemState::update_statistics() {
     SpeciesStatistics stats = get_species_counts();
@@ -217,7 +223,7 @@ void EcosystemState::update_statistics() {
 }
 
 /*
-Remove dead individuals from all species using unified logic
+使用统一逻辑从所有物种中移除死亡个体
 */
 void EcosystemState::cleanup_dead() {
     for (const auto& name : species_registry.get_all_species_names()) {
@@ -234,7 +240,7 @@ void EcosystemState::cleanup_dead() {
 }
 
 /*
-Get current population counts for all species
+获取所有物种的当前种群数量
 */
 SpeciesStatistics EcosystemState::get_species_counts() const {
     SpeciesStatistics stats;
@@ -247,7 +253,7 @@ SpeciesStatistics EcosystemState::get_species_counts() const {
 }
 
 /*
-Get detailed data for all species (for frontend/statistics)
+获取所有物种的详细数据 (用于前端/统计)
 */
 SpeciesPopulationData EcosystemState::get_species_data() const {
     SpeciesPopulationData data;
@@ -257,7 +263,7 @@ SpeciesPopulationData EcosystemState::get_species_data() const {
         for (const auto& individual : list) {
             if (individual->alive) {
                 BaseIndividualData ind;
-                ind.id = reinterpret_cast<std::uintptr_t>(individual.get()); // Use address as id (C++ migration)
+                ind.id = reinterpret_cast<std::uintptr_t>(individual.get()); // 使用地址作为id (C++ 迁移)
                 ind.position = PositionData{individual->position.x, individual->position.y};
                 ind.energy = individual->energy;
                 ind.age = individual->age;
@@ -272,7 +278,7 @@ SpeciesPopulationData EcosystemState::get_species_data() const {
 }
 
 /*
-Reset ecosystem to initial state using unified logic
+使用统一逻辑将生态系统重置为初始状态
 */
 void EcosystemState::reset(const EcosystemConfig& new_config) {
     config = new_config;
@@ -285,7 +291,7 @@ void EcosystemState::reset(const EcosystemConfig& new_config) {
 }
 
 /*
-Check for extinct species using unified logic
+检查并返回已灭绝的物种
 */
 std::vector<std::string> EcosystemState::check_extinction() const {
     std::vector<std::string> extinct;
@@ -294,4 +300,33 @@ std::vector<std::string> EcosystemState::check_extinction() const {
             extinct.push_back(name);
     }
     return extinct;
+}
+
+/*
+通用查询接口：获取指定范围内的物种个体
+*/
+std::vector<std::shared_ptr<Species>> EcosystemState::get_species_in_range(
+    const std::string& species_name, 
+    const Position& center, 
+    double radius) const {
+    
+    std::vector<std::shared_ptr<Species>> result;
+    
+    // 检查物种是否存在
+    auto it = species_registry.registry.find(species_name);
+    if (it == species_registry.registry.end()) {
+        return result; // 返回空列表
+    }
+    
+    // 遍历该物种的所有个体
+    const auto& species_list = it->second.list;
+    for (const auto& individual : species_list) {
+        // 检查个体是否存活且在指定范围内
+        if (individual->alive && 
+            individual->position.distance_to(center) <= radius) {
+            result.push_back(individual);
+        }
+    }
+    
+    return result;
 }

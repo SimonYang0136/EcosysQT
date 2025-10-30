@@ -117,7 +117,6 @@ vcpkg **不需要**安装到C盘根目录！您可以选择以下任何位置：
 
 项目使用以下第三方库（通过 vcpkg 管理）：
 
-- **Qt5** (qt5-base, qt5-widgets) - GUI 框架
 - **Eigen3** - 线性代数库
 
 这些依赖在 `vcpkg.json` 文件中定义，vcpkg 会自动下载和构建。
@@ -140,9 +139,7 @@ EcosysQT/
 
 ## 故障排除
 
-1. **找不到 Qt5**: 确保 vcpkg 已正确安装 Qt5 包
-2. **找不到 Eigen3**: 确保 vcpkg 已正确安装 Eigen3 包
-3. **CMake 版本过低**: 升级到 CMake 3.16 或更高版本
+1. **找不到 Eigen3**: 确保 vcpkg 已正确安装 Eigen3 包
 
 ## 清理构建
 
