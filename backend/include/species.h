@@ -1,3 +1,8 @@
+/*
+Species Data Model
+Defines the base species class and specific species implementations in the ecosystem (C++ migration)
+*/
+
 #pragma once
 #include <vector>
 #include <string>

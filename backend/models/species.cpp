@@ -1,3 +1,8 @@
+/*
+Species Data Model
+Defines the base species class and specific species implementations in the ecosystem (C++ migration)
+*/
+
 #include "species.h"
 #include <random>
 #include <algorithm>
@@ -5,6 +10,7 @@
 #include <Eigen/Dense>
 
 // --- Species ---
+// Species base class
 Species::Species(Position pos, double energy, int max_age, double reproduction_energy_cost)
     : position(pos), energy(reproduction_energy_cost), max_energy(energy * 4), age(0), max_age(max_age),
       alive(true), reproduction_cooldown(0), death_reason(""), species_name("Species"),
@@ -12,18 +18,22 @@ Species::Species(Position pos, double energy, int max_age, double reproduction_e
 
 void Species::update(const EcosystemStateData& ecosystem_state) {
     if (!alive) return;
+    // Reduce reproduction cooldown
     if (reproduction_cooldown > 0) reproduction_cooldown -= 1;
 }
 
 bool Species::can_reproduce() const {
+    // Check if can reproduce
     return alive && energy >= reproduction_energy_cost * 2 && reproduction_cooldown <= 0;
 }
 
 std::unique_ptr<Species> Species::reproduce(const EcosystemStateData& ecosystem_state) {
+    // Base species does not reproduce
     return nullptr;
 }
 
 void Species::move_randomly(int world_width, int world_height, double speed) {
+    // Random movement
     if (!alive) return;
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -31,16 +41,19 @@ void Species::move_randomly(int world_width, int world_height, double speed) {
     double angle = angle_dist(gen);
     double dx = std::cos(angle) * speed;
     double dy = std::sin(angle) * speed;
+    // Update position with boundary constraints
     position.x = std::max(0.0, std::min((double)world_width, position.x + dx));
     position.y = std::max(0.0, std::min((double)world_height, position.y + dy));
 }
 
 void Species::age_one_step() {
+    // Age increases by one step
     age += 1;
     if (age >= max_age) die_from_old_age();
 }
 
 void Species::die(const std::string& reason) {
+    // Death with reason
     if (alive) {
         alive = false;
         death_reason = reason;
@@ -52,6 +65,7 @@ void Species::die_from_starvation() { die("Starvation"); }
 void Species::die_from_predation(const std::string& predator_name) { die("Predation by " + predator_name); }
 
 // --- Animal ---
+// Animal base class - inherits from Species and adds intelligent movement
 Animal::Animal(Position pos, double energy, int max_age, double reproduction_energy_cost,
                double movement_speed, int energy_consumption, double hunting_range,
                double hunting_success_rate, double detection_range,
@@ -63,6 +77,7 @@ Animal::Animal(Position pos, double energy, int max_age, double reproduction_ene
       hunting_cooldown(0), hunting_cooldown_duration(hunting_cooldown_duration) {}
 
 std::optional<Position> Animal::find_nearest_food(const EcosystemStateData& ecosystem_state) {
+    // Find the nearest food source
     std::optional<Position> nearest_food;
     double min_distance = std::numeric_limits<double>::max();
 
@@ -87,6 +102,7 @@ std::optional<Position> Animal::find_nearest_food(const EcosystemStateData& ecos
 }
 
 void Animal::move_towards_target(const Position& target_position, int world_width, int world_height) {
+    // Move towards a target position
     if (!alive) return;
     double dx = target_position.x - position.x;
     double dy = target_position.y - position.y;
@@ -95,12 +111,14 @@ void Animal::move_towards_target(const Position& target_position, int world_widt
     if (distance > 0) {
         dx = (dx / distance) * movement_speed;
         dy = (dy / distance) * movement_speed;
+        // Update position with boundary constraints
         position.x = std::max(0.0, std::min((double)world_width, position.x + dx));
         position.y = std::max(0.0, std::min((double)world_height, position.y + dy));
     }
 }
 
 void Animal::intelligent_move(const EcosystemStateData& ecosystem_state) {
+    // Intelligent movement - move towards food if available, otherwise move randomly
     if (!alive) return;
     if (hunting_cooldown > 0) {
         hunting_cooldown -= 1;
@@ -117,28 +135,24 @@ void Animal::intelligent_move(const EcosystemStateData& ecosystem_state) {
 }
 
 void Animal::start_hunting_cooldown() {
+    // Start hunting cooldown - animal will stay still for a period
     hunting_cooldown = hunting_cooldown_duration;
 }
 
 // --- Grass ---
+// Grass class - Producer
 Grass::Grass(Position pos)
     : Species(pos, 40, 2000, 40),
       base_growth_rate(0.9), reproduction_chance(0.4),
       competition_radius(30.0), max_competition_effect(0.9) {}
 
 double Grass::calculate_nearby_grass_density_optimized(const EcosystemStateData& ecosystem_state) {
+    // Calculate the density of grass in the nearby area using Eigen matrix
     const auto& positions = ecosystem_state.grass_positions_array;
     const auto& alive_grass_objects = ecosystem_state.alive_grass_objects;
-    if (positions.empty()) return 0.0;
+    if (positions.rows() == 0) return 0.0;
 
-    // 构造 Eigen 矩阵
-    Eigen::MatrixXd pos_mat(positions.size(), 2);
-    for (size_t i = 0; i < positions.size(); ++i) {
-        pos_mat(i, 0) = positions[i].x;
-        pos_mat(i, 1) = positions[i].y;
-    }
-
-    // 找到自身索引
+    // Find the index of self in alive_grass_objects to exclude it
     int self_index = -1;
     for (size_t i = 0; i < alive_grass_objects.size(); ++i) {
         if (alive_grass_objects[i].get() == this) {
@@ -147,42 +161,41 @@ double Grass::calculate_nearby_grass_density_optimized(const EcosystemStateData&
         }
     }
 
-    // 排除自身
+    // Exclude self from calculations
     Eigen::MatrixXd filtered;
-    if (self_index >= 0 && positions.size() > 1) {
-        filtered = Eigen::MatrixXd(positions.size() - 1, 2);
+    if (self_index >= 0 && positions.rows() > 1) {
+        filtered = Eigen::MatrixXd(positions.rows() - 1, 2);
         int idx = 0;
-        for (size_t i = 0; i < positions.size(); ++i) {
-            if ((int)i != self_index) {
-                filtered(idx, 0) = positions[i].x;
-                filtered(idx, 1) = positions[i].y;
+        for (int i = 0; i < positions.rows(); ++i) {
+            if (i != self_index) {
+                filtered(idx, 0) = positions(i, 0);
+                filtered(idx, 1) = positions(i, 1);
                 ++idx;
             }
         }
     } else {
-        filtered = pos_mat;
+        filtered = positions;
     }
     if (filtered.rows() == 0) return 0.0;
 
-    // 计算距离（向量化）
+    // Vectorized distance calculation
     Eigen::Vector2d self_pos(position.x, position.y);
     Eigen::VectorXd distances = (filtered.rowwise() - self_pos.transpose()).rowwise().norm();
 
-    // 统计在竞争半径内的草数量
+    // Count grass within competition radius
     int nearby_grass_count = (distances.array() <= competition_radius).count();
 
+    // Return normalized density (0-1 scale)
     double max_possible_grass = M_PI * (competition_radius * competition_radius) / 400.0;
     double density = std::min(1.0, nearby_grass_count / max_possible_grass);
     return density;
 }
 
-
 double Grass::calculate_nearby_grass_density(const EcosystemStateData& ecosystem_state) {
-    // 优先用优化版
-    if (!ecosystem_state.grass_positions_array.empty())
+    // Calculate the density of grass in the nearby area (fallback)
+    if (ecosystem_state.grass_positions_array.rows() > 0)
         return calculate_nearby_grass_density_optimized(ecosystem_state);
 
-    // Fallback
     const auto& grass_list = ecosystem_state.grass_list;
     if (grass_list.empty()) return 0.0;
 
@@ -204,6 +217,7 @@ double Grass::calculate_nearby_grass_density(const EcosystemStateData& ecosystem
 }
 
 double Grass::get_competition_adjusted_growth_rate(const EcosystemStateData& ecosystem_state) {
+    // Calculate growth rate adjusted for local competition
     double density = calculate_nearby_grass_density(ecosystem_state);
     double competition_factor = 1.0 - (std::pow(density, 0.3) * max_competition_effect);
     if (density == 0) competition_factor = 2.0;
@@ -213,6 +227,7 @@ double Grass::get_competition_adjusted_growth_rate(const EcosystemStateData& eco
 }
 
 void Grass::update(const EcosystemStateData& ecosystem_state) {
+    // Update grass state
     Species::update(ecosystem_state);
     if (!alive) return;
     double adjusted_growth_rate = get_competition_adjusted_growth_rate(ecosystem_state);
@@ -222,10 +237,12 @@ void Grass::update(const EcosystemStateData& ecosystem_state) {
 }
 
 bool Grass::can_reproduce() const {
+    // Check if can reproduce
     return Species::can_reproduce() && (static_cast<double>(rand()) / RAND_MAX < reproduction_chance);
 }
 
 std::unique_ptr<Species> Grass::reproduce(const EcosystemStateData& ecosystem_state) {
+    // Reproduce to create new grass
     Species::reproduce(ecosystem_state);
     if (!can_reproduce()) return nullptr;
     int world_width = ecosystem_state.world_width;
@@ -246,11 +263,13 @@ std::unique_ptr<Species> Grass::reproduce(const EcosystemStateData& ecosystem_st
 }
 
 // --- Cow ---
+// Cow class - Primary consumer
 Cow::Cow(Position pos)
     : Animal(pos, 400, 4000, 400, 3.0, 2, 5.0, 1.0, 800.0, {"grass"}, 0),
       eating_range(5.0) {}
 
 void Cow::update(const EcosystemStateData& ecosystem_state) {
+    // Update cow state
     Animal::update(ecosystem_state);
     if (!alive) return;
     intelligent_move(ecosystem_state);
@@ -267,6 +286,7 @@ void Cow::update(const EcosystemStateData& ecosystem_state) {
 }
 
 void Cow::_eat_grass(const std::vector<Grass*>& grass_list) {
+    // Eat grass
     for (auto* grass : grass_list) {
         if (grass->alive && position.distance_to(grass->position) <= eating_range) {
             energy = std::min(max_energy, energy + grass->energy);
@@ -277,10 +297,12 @@ void Cow::_eat_grass(const std::vector<Grass*>& grass_list) {
 }
 
 bool Cow::can_reproduce() const {
+    // Check if can reproduce
     return Animal::can_reproduce() && age > 20;
 }
 
 std::unique_ptr<Species> Cow::reproduce(const EcosystemStateData& ecosystem_state) {
+    // Reproduce to create new cow
     Animal::reproduce(ecosystem_state);
     if (!can_reproduce()) return nullptr;
     energy -= reproduction_energy_cost;
@@ -299,10 +321,12 @@ std::unique_ptr<Species> Cow::reproduce(const EcosystemStateData& ecosystem_stat
 }
 
 // --- Tiger ---
+// Tiger class - Secondary consumer
 Tiger::Tiger(Position pos)
     : Animal(pos, 4000, 8000, 4000, 4.0, 20, 6.0, 0.2, 1000.0, {"cow"}, 4) {}
 
 void Tiger::update(const EcosystemStateData& ecosystem_state) {
+    // Update tiger state
     Animal::update(ecosystem_state);
     if (energy <= reproduction_energy_cost / 3) {
         hunting_success_rate = 0.2 + 0.6 * (1.0 - age / (double)max_age);
@@ -324,6 +348,7 @@ void Tiger::update(const EcosystemStateData& ecosystem_state) {
 }
 
 void Tiger::_hunt_cows(const std::vector<Cow*>& cow_list) {
+    // Hunt cows
     static std::random_device rd;
     static std::mt19937 gen(rd());
     std::uniform_real_distribution<> hunt_dist(0.0, 1.0);
@@ -341,10 +366,12 @@ void Tiger::_hunt_cows(const std::vector<Cow*>& cow_list) {
 }
 
 bool Tiger::can_reproduce() const {
+    // Check if can reproduce
     return Animal::can_reproduce() && age > 30;
 }
 
 std::unique_ptr<Species> Tiger::reproduce(const EcosystemStateData& ecosystem_state) {
+    // Reproduce to create new tiger
     Animal::reproduce(ecosystem_state);
     if (!can_reproduce()) return nullptr;
     energy -= reproduction_energy_cost;

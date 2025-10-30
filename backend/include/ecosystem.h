@@ -1,3 +1,8 @@
+/*
+Ecosystem Data Model
+Manages the entire ecosystem state and data (C++ migration)
+*/
+
 #pragma once
 #include <vector>
 #include <string>
@@ -6,6 +11,7 @@
 #include <optional>
 #include "species.h"
 #include <Eigen/Dense>
+
 // Enum for species type (for statistics, registry, etc.)
 enum class SpeciesType {
     GRASS,
@@ -13,6 +19,7 @@ enum class SpeciesType {
     TIGER
 };
 
+// Mapping functions between species type and string
 SpeciesType species_type_from_name(const std::string& name);
 std::string name_from_species_type(SpeciesType type);
 
@@ -48,7 +55,7 @@ public:
     int get_count(SpeciesType type) const;
     void reset();
 
-    // Property-like accessors
+    // Property-like accessors for compatibility
     int grass() const;
     void set_grass(int value);
     int cow() const;
@@ -65,7 +72,7 @@ struct EcosystemStateData {
     std::vector<std::shared_ptr<Species>> cow_list;
     std::vector<std::shared_ptr<Species>> tiger_list;
     int time_step;
-    Eigen::MatrixXd grass_positions_array; // 完美对应 numpy 数组
+    Eigen::MatrixXd grass_positions_array; // Corresponds to numpy array in Python
     std::vector<std::shared_ptr<Species>> alive_grass_objects;
 };
 

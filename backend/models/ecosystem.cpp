@@ -1,10 +1,33 @@
+/*
+Ecosystem Data Model
+Manages the entire ecosystem state and data (C++ migration)
+*/
+
 #include "ecosystem.h"
 #include <random>
 #include <algorithm>
 #include <iostream>
 #include <Eigen/Dense>
 
+// --- SpeciesType <-> string mapping functions ---
+SpeciesType species_type_from_name(const std::string& name) {
+    if (name == "grass") return SpeciesType::GRASS;
+    if (name == "cow") return SpeciesType::COW;
+    if (name == "tiger") return SpeciesType::TIGER;
+    throw std::invalid_argument("Unknown species name: " + name);
+}
+
+std::string name_from_species_type(SpeciesType type) {
+    switch(type) {
+        case SpeciesType::GRASS: return "grass";
+        case SpeciesType::COW: return "cow";
+        case SpeciesType::TIGER: return "tiger";
+        default: return "";
+    }
+}
+
 // --- SpeciesStatistics ---
+// Species statistics management (population tracking)
 SpeciesStatistics::SpeciesStatistics() {
     for (auto type : {SpeciesType::GRASS, SpeciesType::COW, SpeciesType::TIGER}) {
         statistics[type] = 0;
@@ -31,6 +54,7 @@ int SpeciesStatistics::tiger() const { return get_count(SpeciesType::TIGER); }
 void SpeciesStatistics::set_tiger(int value) { set_count(SpeciesType::TIGER, value); }
 
 // --- SpeciesRegistry ---
+// Registry for all species types and individuals
 SpeciesRegistry::SpeciesRegistry(const EcosystemConfig& config) {
     register_species("grass", std::make_shared<Grass>(Position{0,0}), config.initial_grass);
     register_species("cow", std::make_shared<Cow>(Position{0,0}), config.initial_cows);
@@ -86,11 +110,15 @@ void SpeciesRegistry::filter_all_alive() {
 }
 
 // --- EcosystemState ---
+// Ecosystem state manager (simulation core)
 EcosystemState::EcosystemState(const EcosystemConfig& config)
     : config(config), time_step(0), species_registry(config), births(), deaths(), population_history() {
     initialize_populations();
 }
 
+/*
+Initialize populations for all species using unified logic
+*/
 void EcosystemState::initialize_populations() {
     for (const auto& name : species_registry.get_all_species_names()) {
         int initial_count = species_registry.get_initial_count(name);
@@ -106,6 +134,9 @@ void EcosystemState::initialize_populations() {
     }
 }
 
+/*
+Get ecosystem state snapshot for simulation and frontend
+*/
 EcosystemStateData EcosystemState::get_ecosystem_state() const {
     EcosystemStateData state;
     state.world_width = config.world_width;
@@ -137,6 +168,9 @@ EcosystemStateData EcosystemState::get_ecosystem_state() const {
     return state;
 }
 
+/*
+Update all species using unified logic
+*/
 void EcosystemState::update_species(const EcosystemStateData& state) {
     for (const auto& name : species_registry.get_all_species_names()) {
         auto& list = species_registry.get_species_list(name);
@@ -146,23 +180,10 @@ void EcosystemState::update_species(const EcosystemStateData& state) {
     }
 }
 
-// --- SpeciesType <-> string 映射函数 ---
-SpeciesType species_type_from_name(const std::string& name) {
-    if (name == "grass") return SpeciesType::GRASS;
-    if (name == "cow") return SpeciesType::COW;
-    if (name == "tiger") return SpeciesType::TIGER;
-    throw std::invalid_argument("Unknown species name: " + name);
-}
 
-std::string name_from_species_type(SpeciesType type) {
-    switch(type) {
-        case SpeciesType::GRASS: return "grass";
-        case SpeciesType::COW: return "cow";
-        case SpeciesType::TIGER: return "tiger";
-        default: return "";
-    }
-}
-
+/*
+Handle reproduction for all species using unified logic
+*/
 void EcosystemState::handle_reproduction() {
     EcosystemStateData state = get_ecosystem_state();
     for (const auto& name : species_registry.get_all_species_names()) {
@@ -184,6 +205,9 @@ void EcosystemState::handle_reproduction() {
     }
 }
 
+/*
+Update statistics and maintain population history
+*/
 void EcosystemState::update_statistics() {
     SpeciesStatistics stats = get_species_counts();
     std::map<SpeciesType, int> snapshot = stats.statistics;
@@ -192,6 +216,9 @@ void EcosystemState::update_statistics() {
         population_history.erase(population_history.begin(), population_history.end() - 100);
 }
 
+/*
+Remove dead individuals from all species using unified logic
+*/
 void EcosystemState::cleanup_dead() {
     for (const auto& name : species_registry.get_all_species_names()) {
         auto& list = species_registry.get_species_list(name);
@@ -206,6 +233,9 @@ void EcosystemState::cleanup_dead() {
     }
 }
 
+/*
+Get current population counts for all species
+*/
 SpeciesStatistics EcosystemState::get_species_counts() const {
     SpeciesStatistics stats;
     for (const auto& name : species_registry.get_all_species_names()) {
@@ -216,6 +246,9 @@ SpeciesStatistics EcosystemState::get_species_counts() const {
     return stats;
 }
 
+/*
+Get detailed data for all species (for frontend/statistics)
+*/
 SpeciesPopulationData EcosystemState::get_species_data() const {
     SpeciesPopulationData data;
     for (const auto& name : species_registry.get_all_species_names()) {
@@ -224,7 +257,7 @@ SpeciesPopulationData EcosystemState::get_species_data() const {
         for (const auto& individual : list) {
             if (individual->alive) {
                 BaseIndividualData ind;
-                ind.id = reinterpret_cast<std::uintptr_t>(individual.get()); // C++没有id()，用地址近似
+                ind.id = reinterpret_cast<std::uintptr_t>(individual.get()); // Use address as id (C++ migration)
                 ind.position = PositionData{individual->position.x, individual->position.y};
                 ind.energy = individual->energy;
                 ind.age = individual->age;
@@ -238,6 +271,9 @@ SpeciesPopulationData EcosystemState::get_species_data() const {
     return data;
 }
 
+/*
+Reset ecosystem to initial state using unified logic
+*/
 void EcosystemState::reset(const EcosystemConfig& new_config) {
     config = new_config;
     time_step = 0;
@@ -248,6 +284,9 @@ void EcosystemState::reset(const EcosystemConfig& new_config) {
     initialize_populations();
 }
 
+/*
+Check for extinct species using unified logic
+*/
 std::vector<std::string> EcosystemState::check_extinction() const {
     std::vector<std::string> extinct;
     for (const auto& name : species_registry.get_all_species_names()) {
