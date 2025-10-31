@@ -1,31 +1,43 @@
-# CMake 最低版本要求
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
-# 项目名称和语言
-project(MyQtApp LANGUAGES CXX)
+project(ECOSYSQT VERSION 0.1 LANGUAGES CXX)
 
-# 设置 C++ 标准
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# --- 核心 Qt 配置 ---
-# 开启 Qt 的自动化工具，它会自动处理 MOC, UIC, RCC
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-# 查找我们需要的 Qt 模块 (Widgets 是必须的)
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-
-# --- 添加源文件 ---
-# 定义可执行文件及其源文件
-add_executable(MyQtApp
-  main.cpp
-  mainwindow.cpp
-  mainwindow.h
-  mainwindow.ui
+set(PROJECT_SOURCES
+        main.cpp
+        Widget.cpp
+        Widget.h
+        DataStructures.h
+        IBackendInterface.h
+        TestBackend.cpp
+        TestBackend.h
+        my_resources.qrc
 )
 
-# --- 链接 Qt 库 ---
-# 将你的可执行文件与 Qt Widgets 库链接起来
-target_link_libraries(MyQtApp PRIVATE Qt5::Widgets)
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(ECOSYSQT
+        MANUAL_FINALIZATION
+        ${PROJECT_SOURCES}
+    )
+else()
+    add_executable(ECOSYSQT ${PROJECT_SOURCES})
+endif()
+
+target_link_libraries(ECOSYSQT PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+set_target_properties(ECOSYSQT PROPERTIES
+    WIN32_EXECUTABLE TRUE
+)
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_finalize_executable(ECOSYSQT)
+endif()
