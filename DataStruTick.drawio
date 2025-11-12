@@ -713,7 +713,7 @@
           <mxGeometry x="839" y="1033" width="165" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-355" value="������ 阶段3: 合并请求 (merge_worker_queues)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="910" y="3082" width="170" height="60" as="geometry" />
+          <mxGeometry x="880" y="3091" width="170" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-356" value="⚔️ 阶段4: 解决交互 (resolve_interactions)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1040" y="3520" width="120" height="60" as="geometry" />
