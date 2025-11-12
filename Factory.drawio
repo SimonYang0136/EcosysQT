@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0" version="28.2.9">
   <diagram name="ç¬¬ 1 é¡µ" id="KhLpDcqiK-T7GYXWgzd4">
-    <mxGraphModel dx="1405" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="578" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="j4eW53UgZqLdfEQlWC_T-1" value="í ½í³‹ åˆ›å»ºç¤ºä¾‹" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
-          <mxGeometry x="20" y="169" width="896" height="196" as="geometry" />
+          <mxGeometry x="1310" y="550" width="896" height="196" as="geometry" />
         </mxCell>
         <mxCell id="j4eW53UgZqLdfEQlWC_T-2" value="cow.yaml&#xa;movement_speed: 2.0&#xa;hunting_range: 0.0" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="j4eW53UgZqLdfEQlWC_T-1">
           <mxGeometry x="46" y="55" width="219" height="102" as="geometry" />
