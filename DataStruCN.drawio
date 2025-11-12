@@ -1,9 +1,252 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0" version="28.2.9">
   <diagram name="第 1 页" id="biOHTNj1uOVLL3gMXPwb">
-    <mxGraphModel>
+    <mxGraphModel dx="1576" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="HYuzKGzOTzWRQ170RT16-1" value="前端可视化模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="778" y="20" width="1064" height="313" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-2" value="并发控制模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="778" y="353" width="622" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-3" value="配置加载模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="390" y="1037" width="690" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-4" value="交互处理模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="778" y="521" width="725" height="261" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-5" value="行为决策模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="262" width="203" height="567" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-6" value="空间查询模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1993" y="752" width="437" height="312" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-7" value="实体管理模块" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1255" y="844" width="588" height="422" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-8" value="核心中枢" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="390" y="350" width="222" height="667" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-9" value="EcosystemState&#xa;生态系统状态" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="415" y="743" width="172" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-10" value="RacesRegistry&#xa;物种注册表" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1641" y="978" width="158" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-11" value="ThingFactory&#xa;植物工厂" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1303" y="975" width="153" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-12" value="RaceFactory&#xa;动物工厂" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1305" y="1153" width="148" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-13" value="SpatialGrid&#xa;空间网格" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2018" y="905" width="140" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-14" value="BehaviorTree&#xa;行为树" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="45" y="667" width="153" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-15" value="InteractionRequest System&#xa;交互请求系统" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="804" y="556" width="251" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-16" value="InteractionResolver&#xa;交互解析器" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="640" width="199" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-17" value="YamlSpeciesConfigProvider&#xa;YAML配置提供器" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="803" y="1103" width="252" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-18" value="YAML配置文件" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="421" y="1152" width="160" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-19" value="ThreadPool&#xa;线程池" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="859" y="388" width="140" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-20" value="Snapshot&#xa;状态快照" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="867" y="55" width="124" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-21" value="Frontend Selection&#xa;前端选择机制" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1622" y="92" width="196" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-22" value="Rendering Cache&#xa;渲染缓存" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1630" y="220" width="180" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-23" value="GUI界面" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="67" width="118" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-24" value="管理种群动态" style="curved=1;startArrow=none;endArrow=block;exitX=0.74;exitY=1;entryX=0.2;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="888" />
+              <mxPoint x="1563" y="888" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-25" value="依赖空间索引" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.81;entryX=0.3;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="813" />
+              <mxPoint x="1993" y="813" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-26" value="提交并行任务" style="curved=1;startArrow=none;endArrow=block;exitX=0.62;exitY=0;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="575" />
+              <mxPoint x="695" y="427" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-27" value="收集/触发交互" style="curved=1;startArrow=none;endArrow=block;exitX=0.72;exitY=0;entryX=0;entryY=0.32;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="669" />
+              <mxPoint x="695" y="578" />
+              <mxPoint x="778" y="578" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-28" value="加载初始化配置" style="curved=1;startArrow=none;endArrow=block;exitX=0.64;exitY=1;entryX=0.06;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="961" />
+              <mxPoint x="695" y="1089" />
+              <mxPoint x="778" y="1089" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-29" value="生成实时数据" style="curved=1;startArrow=none;endArrow=block;exitX=0.57;exitY=0;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="407" />
+              <mxPoint x="695" y="94" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-30" value="存储实体状态" style="curved=1;startArrow=none;endArrow=block;exitX=0.66;exitY=1;entryX=0.06;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="941" />
+              <mxPoint x="1255" y="941" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-31" value="存储实体状态" style="curved=1;startArrow=none;endArrow=block;exitX=0.63;exitY=1;entryX=0;entryY=0.38;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-9" target="HYuzKGzOTzWRQ170RT16-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="612" y="981" />
+              <mxPoint x="695" y="1278" />
+              <mxPoint x="1080" y="1278" />
+              <mxPoint x="1167" y="1176" />
+              <mxPoint x="1255" y="1176" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-32" value="解析配置" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.9;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-18" target="HYuzKGzOTzWRQ170RT16-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="778" y="1179" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-33" value="提供参数" style="curved=1;startArrow=none;endArrow=block;exitX=0.98;exitY=0;entryX=0.1;entryY=1;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-17" target="HYuzKGzOTzWRQ170RT16-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="1094" />
+              <mxPoint x="1255" y="1094" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-34" value="提供参数+行为树" style="curved=1;startArrow=none;endArrow=block;exitX=0.91;exitY=1;entryX=0;entryY=0.7;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-17" target="HYuzKGzOTzWRQ170RT16-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="1200" />
+              <mxPoint x="1167" y="1219" />
+              <mxPoint x="1255" y="1219" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-35" value="注册实体" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.48;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-11" target="HYuzKGzOTzWRQ170RT16-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1563" y="1014" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-36" value="注册实体" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.28;entryY=1;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-12" target="HYuzKGzOTzWRQ170RT16-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1563" y="1192" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-37" value="实体空间注册" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.13;entryY=1;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-10" target="HYuzKGzOTzWRQ170RT16-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1993" y="1017" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-38" value="获取上下文数据" style="curved=1;startArrow=none;endArrow=block;exitX=0.84;exitY=1;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-14" target="HYuzKGzOTzWRQ170RT16-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="223" y="782" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-39" value="生成交互请求" style="curved=1;startArrow=none;endArrow=block;exitX=0.57;exitY=0;entryX=0;entryY=0.67;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-14" target="HYuzKGzOTzWRQ170RT16-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="223" y="319" />
+              <mxPoint x="612" y="319" />
+              <mxPoint x="695" y="611" />
+              <mxPoint x="778" y="611" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-40" value="分发交互任务" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.21;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-15" target="HYuzKGzOTzWRQ170RT16-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1255" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-41" value="更新实体状态" style="curved=1;startArrow=none;endArrow=block;exitX=0.01;exitY=1;entryX=0.98;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-16" target="HYuzKGzOTzWRQ170RT16-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1255" y="729" />
+              <mxPoint x="612" y="729" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-42" value="传递实时数据" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-20" target="HYuzKGzOTzWRQ170RT16-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-43" value="用户交互" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.2;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-23" target="HYuzKGzOTzWRQ170RT16-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1563" y="94" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-44" value="高效渲染" style="curved=1;startArrow=none;endArrow=block;exitX=0.67;exitY=1;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-23" target="HYuzKGzOTzWRQ170RT16-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1504" y="259" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HYuzKGzOTzWRQ170RT16-45" value="反馈实体状态" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.89;entryX=0.58;entryY=0;rounded=0;" edge="1" parent="1" source="HYuzKGzOTzWRQ170RT16-21" target="HYuzKGzOTzWRQ170RT16-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1563" y="179" />
+              <mxPoint x="695" y="179" />
+              <mxPoint x="612" y="465" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
