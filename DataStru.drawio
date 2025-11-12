@@ -1,0 +1,253 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0" version="28.2.9">
+  <diagram name="第 1 页" id="FdRFuQBWH_tB5zblEoYU">
+    <mxGraphModel dx="1371" dy="909" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PTIzqlyIKP4009tiSup_-136" value="Frontend Visualization Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="957" y="20" width="1329" height="331" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-137" value="Concurrency Control Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="957" y="371" width="310" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-138" value="Configuration Loading Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="434" y="1071" width="834" height="222" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-139" value="Interaction Processing Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="957" y="539" width="814" height="266" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-140" value="Behavior Decision Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="277" width="208" height="582" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-141" value="Spatial Query Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2523" y="779" width="194" height="318" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-142" value="Entity Management Module" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1518" y="868" width="768" height="455" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-143" value="Core Hub" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="434" y="374" width="285" height="677" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-144" value="EcosystemState&#xa;Ecosystem State" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="488" y="773" width="177" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-145" value="RacesRegistry&#xa;Species Registry" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2044" y="1012" width="175" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-146" value="ThingFactory&#xa;Plant Factory" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1567" y="1009" width="156" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-147" value="RaceFactory&#xa;Animal Factory" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1561" y="1210" width="168" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-148" value="SpatialGrid&#xa;Spatial Grid" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2548" y="946" width="144" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-149" value="BehaviorTree&#xa;Behavior Tree" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="45" y="692" width="158" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-150" value="InteractionRequest System&#xa;Interaction Request System" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="985" y="577" width="256" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-151" value="InteractionResolver&#xa;Interaction Resolver" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1543" y="670" width="204" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-152" value="YamlSpeciesConfigProvider&#xa;YAML Species Config Provider" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="982" y="1138" width="260" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-153" value="YAML Configuration Files" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="459" y="1192" width="235" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-154" value="ThreadPool&#xa;Thread Pool" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="406" width="145" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-155" value="Snapshot&#xa;State Snapshot" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1029" y="61" width="166" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-156" value="Frontend Selection&#xa;Frontend Selection Mechanism" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2001" y="86" width="260" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-157" value="Rendering Cache&#xa;Rendering Cache" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2041" y="238" width="180" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-158" value="GUI Interface" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1567" y="73" width="156" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-159" value="Manages population dynamics" style="curved=1;startArrow=none;endArrow=block;exitX=0.82;exitY=0.99;entryX=0.12;entryY=0;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-145">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="908" />
+              <mxPoint x="1887" y="908" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-160" value="Relies on spatial indexing" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.69;entryX=0.33;entryY=0;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-148">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="836" />
+              <mxPoint x="2523" y="836" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-161" value="Submits parallel tasks" style="curved=1;startArrow=none;endArrow=block;exitX=0.65;exitY=-0.01;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-154">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="605" />
+              <mxPoint x="838" y="445" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-162" value="Collects/triggers interactions" style="curved=1;startArrow=none;endArrow=block;exitX=0.78;exitY=-0.01;entryX=0;entryY=0.29;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-150">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="699" />
+              <mxPoint x="838" y="596" />
+              <mxPoint x="957" y="596" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-163" value="Loads initialization config" style="curved=1;startArrow=none;endArrow=block;exitX=0.68;exitY=0.99;entryX=0;entryY=0.01;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-152">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="985" />
+              <mxPoint x="838" y="1130" />
+              <mxPoint x="957" y="1130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-164" value="Generates real-time data" style="curved=1;startArrow=none;endArrow=block;exitX=0.58;exitY=-0.01;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-155">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="431" />
+              <mxPoint x="838" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-165" value="Stores entity states" style="curved=1;startArrow=none;endArrow=block;exitX=0.7;exitY=0.99;entryX=0.12;entryY=0;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-146">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="965" />
+              <mxPoint x="1518" y="965" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-166" value="Stores entity states" style="curved=1;startArrow=none;endArrow=block;exitX=0.66;exitY=0.99;entryX=0;entryY=0.33;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-144" target="PTIzqlyIKP4009tiSup_-147">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="719" y="1005" />
+              <mxPoint x="838" y="1325" />
+              <mxPoint x="1267" y="1325" />
+              <mxPoint x="1393" y="1229" />
+              <mxPoint x="1518" y="1229" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-167" value="Parses configuration" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.75;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-153" target="PTIzqlyIKP4009tiSup_-152">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="957" y="1219" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-168" value="Provides parameters" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.05;entryX=0.13;entryY=1;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-152" target="PTIzqlyIKP4009tiSup_-146">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1267" y="1134" />
+              <mxPoint x="1518" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-169" value="Provides params + behavior trees" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.92;entryX=0;entryY=0.72;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-152" target="PTIzqlyIKP4009tiSup_-147">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1267" y="1240" />
+              <mxPoint x="1393" y="1275" />
+              <mxPoint x="1518" y="1275" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-170" value="Registers entities" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.49;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-146" target="PTIzqlyIKP4009tiSup_-145">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1887" y="1048" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-171" value="Registers entities" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.22;entryY=1;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-147" target="PTIzqlyIKP4009tiSup_-145">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1887" y="1249" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-172" value="Entity spatial registration" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.11;entryY=1;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-145" target="PTIzqlyIKP4009tiSup_-148">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2523" y="1051" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-173" value="Fetches context data" style="curved=1;startArrow=none;endArrow=block;exitX=0.82;exitY=1.01;entryX=0;entryY=0.49;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-149" target="PTIzqlyIKP4009tiSup_-144">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="228" y="812" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-174" value="Generates interaction requests" style="curved=1;startArrow=none;endArrow=block;exitX=0.56;exitY=0.01;entryX=0;entryY=0.71;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-149" target="PTIzqlyIKP4009tiSup_-150">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="228" y="334" />
+              <mxPoint x="719" y="334" />
+              <mxPoint x="838" y="636" />
+              <mxPoint x="957" y="636" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-175" value="Distributes interaction tasks" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.24;entryY=0;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-150" target="PTIzqlyIKP4009tiSup_-151">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1518" y="616" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-176" value="Updates entity states" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.95;entryX=1;entryY=0.03;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-151" target="PTIzqlyIKP4009tiSup_-144">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1518" y="752" />
+              <mxPoint x="719" y="752" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-177" value="Transmits real-time data" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-155" target="PTIzqlyIKP4009tiSup_-158">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-178" value="Handles user interaction" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.31;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-158" target="PTIzqlyIKP4009tiSup_-156">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1887" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-179" value="Efficient rendering" style="curved=1;startArrow=none;endArrow=block;exitX=0.62;exitY=1;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-158" target="PTIzqlyIKP4009tiSup_-157">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1772" y="277" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PTIzqlyIKP4009tiSup_-180" value="Feeds back entity states" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.78;entryX=0.6;entryY=-0.01;rounded=0;" edge="1" parent="1" source="PTIzqlyIKP4009tiSup_-156" target="PTIzqlyIKP4009tiSup_-144">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1887" y="191" />
+              <mxPoint x="838" y="191" />
+              <mxPoint x="719" y="495" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
