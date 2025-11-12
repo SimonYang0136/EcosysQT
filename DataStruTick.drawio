@@ -46,7 +46,7 @@
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-194" value="������ 行为树执行" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="278" y="2060" width="330" height="513" as="geometry" />
         </mxCell>
-        <mxCell id="_Iwzn7UBpClJ2MG5jS9v-195" value="������ 阶段1: 准备更新 (prepare_for_update)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+        <mxCell id="_Iwzn7UBpClJ2MG5jS9v-195" value="������阶段1: 准备更新 (prepare_for_update)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
           <mxGeometry x="480" y="160" width="330" height="720" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-196" value="开始新的 Tick" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
@@ -709,20 +709,20 @@
             <Array as="points" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_Iwzn7UBpClJ2MG5jS9v-352" value="������ 阶段2: 并发决策 (dispatch_decision_tasks)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="_Iwzn7UBpClJ2MG5jS9v-352" value="������&amp;nbsp;阶段2: 并发决策 (dispatch_decision_tasks)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="839" y="1033" width="165" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-355" value="������ 阶段3: 合并请求 (merge_worker_queues)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="880" y="3091" width="170" height="60" as="geometry" />
+          <mxGeometry x="910" y="3082" width="170" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-356" value="⚔️ 阶段4: 解决交互 (resolve_interactions)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1040" y="3520" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-357" value="������ 阶段5: 应用变更 (apply_registry_changes)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="985" y="4560" width="146" height="60" as="geometry" />
+          <mxGeometry x="985" y="4560" width="165" height="60" as="geometry" />
         </mxCell>
         <mxCell id="_Iwzn7UBpClJ2MG5jS9v-358" value="������ 阶段6: 统计更新 (update_statistics)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="930" y="5482" width="120" height="60" as="geometry" />
+          <mxGeometry x="910" y="5482" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
